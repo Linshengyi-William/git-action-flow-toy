@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: deploy  # Ensure it checks out the deploy branch
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -20,9 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./  # Ensure this is correct if your package.json is in the root
 
       - name: Build project
         run: npm run build
+        working-directory: ./  # Ensure this is correct if your package.json is in the root
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
